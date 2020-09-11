@@ -1,0 +1,20 @@
+:root {
+    --weaterh-card-color: royalblue;
+    --bg-color: black;
+    --light-text: #ffffff;
+}
+
+h1 {
+
+}
+header {
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+.header-style {
+    font-size: 40px;
+    color: #ffffff;
+    text-align: center;
+  }
+
