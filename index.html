@@ -22,14 +22,32 @@
             <div class="row">
                 <!-- Input Form Column-->
                 <div class="col-md-4 bg-light">
-                    INPUT FORM COLUMN
+                    <h4>Search for a City: </h4>
+                    <div class="input-group mb-3">
+                        <input type="text" id="city" class="form-control">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" id="searchCity"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <!-- Search List -->
+                    <div class="list-group"></div>
                 </div>
 
                 <!-- Weather Display Column -->
                 <div class=" col-md-8">
-                    DISPLAY COLUMN
+                    <div class="row p-2">
+                        <div class="card">
+                            <!-- Current Weather Card -->
+                            <div class="card-body"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4>5-Day Forecast:</h4>
+                    </div>
+                    <!-- Five Day Card -->
+                    <div id="weeklyForecast" class="row"></div>
                 </div>
-            </div>
+                </div>
         </div>
     </main>
 
