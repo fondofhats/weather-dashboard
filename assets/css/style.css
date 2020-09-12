@@ -9,6 +9,9 @@ header {
     text-align: center;
     padding: 20px;
   }
+  .form-title {
+    font-size: 1.2em;
+  }
   .card {
     width:100%;
   }
