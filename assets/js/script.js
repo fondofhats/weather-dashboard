@@ -31,7 +31,7 @@ function getData(city) {
 
             /* Get UV Index from Weather API */
             var fullWeatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + response.coord.lat + "&lon=" + 
-            response.coord.lon + "&exclude=minutely,hourly&appid=bb777764badc46ea953835d44e32dc53";
+            response.coord.lon + "&exclude=minutely,hourly&units=imperial&appid=bb777764badc46ea953835d44e32dc53";
             return fetch(fullWeatherUrl)
                 .then(function(fullResponse){
                     return fullResponse.json();
@@ -49,6 +49,7 @@ function getData(city) {
                     } 
                     
                     /* Get 5 Day Forecast From Weather API */
+                    console.log(fullResponse.daily);
                     for(var i=1;i<6;i++) {
                         /* console.log(fivedayResponse.list[i]); */
                         var newCard = $("<div>").attr("class", "col fiveDay bg-primary text-white rounded-lg p-2");
@@ -61,10 +62,11 @@ function getData(city) {
                         var iconCode = fullResponse.daily[i].weather[0].icon;
                         var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
                         newCard.append($("<img>").attr("src", iconURL));
-
+                        var temp = Math.ceil(fullResponse.daily[i].temp["day"]);
+                        newCard.append($("<p>").html("Temp: " + temp + " &#8457"));
+                        var humidity = fullResponse.daily[i].humidity;
+                        newCard.append($("<p>").html("Humidity: " + humidity));                       
                     }
-
-
                 });
             
         });
