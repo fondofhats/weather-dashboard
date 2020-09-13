@@ -29,9 +29,24 @@ function getData(city) {
             var windSpeed = response.wind.speed;
             mainCard.append($("<p>").html("Wind Speed: " + windSpeed + " MPH"));
 
-            var lat = response.coord.lat;
-            var lon = response.coord.lon;
-
+            var weatherUviUrl = "https://api.openweathermap.org/data/2.5/uvi?appid=bb777764badc46ea953835d44e32dc53&lat="+ response.coord.lat + "&lon=" + response.coord.lon;
+            return fetch(weatherUviUrl)
+                .then(function(UvResponse){
+                    return UvResponse.json();
+                })
+                .then(function(UvResponse){
+                    console.log(UvResponse);
+                    mainCard.append($("<p>").html("UV Index: <span>" + UvResponse.value + "</span>"));
+                    /* Set UV Priority Warning */
+                    if (UvResponse.value <= 2) {
+                        $("span").attr("class", "btn btn-success");
+                    } else if (UvResponse.value > 2 && UvResponse.value <= 5){
+                        $("span").attr("class","btn btn-warning");
+                    } else {
+                        $("span").attr("class","btn btn-danger")
+                    }
+        
+                });
 
         });
     
