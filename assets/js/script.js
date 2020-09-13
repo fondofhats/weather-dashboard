@@ -11,7 +11,7 @@ function getData(city) {
             return response.json();
         })
         .then(function(response){
-            console.log(response);
+            /* console.log(response); */
             var date = moment().format(" MM/DD/YYYY");
             var wIcon = response.weather[0].icon;
             var iconUrl = "http://openweathermap.org/img/w/" + wIcon + ".png";
@@ -29,25 +29,44 @@ function getData(city) {
             var windSpeed = response.wind.speed;
             mainCard.append($("<p>").html("Wind Speed: " + windSpeed + " MPH"));
 
-            var weatherUviUrl = "https://api.openweathermap.org/data/2.5/uvi?appid=bb777764badc46ea953835d44e32dc53&lat="+ response.coord.lat + "&lon=" + response.coord.lon;
-            return fetch(weatherUviUrl)
-                .then(function(UvResponse){
-                    return UvResponse.json();
+            /* Get UV Index from Weather API */
+            var fullWeatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + response.coord.lat + "&lon=" + 
+            response.coord.lon + "&exclude=minutely,hourly&appid=bb777764badc46ea953835d44e32dc53";
+            return fetch(fullWeatherUrl)
+                .then(function(fullResponse){
+                    return fullResponse.json();
                 })
-                .then(function(UvResponse){
-                    console.log(UvResponse);
-                    mainCard.append($("<p>").html("UV Index: <span>" + UvResponse.value + "</span>"));
+                .then(function(fullResponse){
+                    /* console.log(UvResponse); */
+                    mainCard.append($("<p>").html("UV Index: <span>" + fullResponse.current.uvi + "</span>"));
                     /* Set UV Priority Warning */
-                    if (UvResponse.value <= 2) {
+                    if (fullResponse.current.uvi <= 2) {
                         $("span").attr("class", "btn btn-success");
-                    } else if (UvResponse.value > 2 && UvResponse.value <= 5){
+                    } else if (fullResponse.current.uvi > 2 && fullResponse.current.uvi <= 5){
                         $("span").attr("class","btn btn-warning");
                     } else {
-                        $("span").attr("class","btn btn-danger")
-                    }
-        
-                });
+                        $("span").attr("class","btn btn-danger");
+                    } 
+                    
+                    /* Get 5 Day Forecast From Weather API */
+                    for(var i=1;i<6;i++) {
+                        /* console.log(fivedayResponse.list[i]); */
+                        var newCard = $("<div>").attr("class", "col fiveDay bg-primary text-white rounded-lg p-2");
+                        $("#weeklyForecast").append(newCard);
+                        /* console.log("UTC: " + moment.unix(fullResponse.daily[i].dt * 1000));
+                        console.log("DATE: " + new Date(fullResponse.daily[i].dt * 1000)); */
+                        var myDate = new Date(fullResponse.daily[i].dt * 1000).toLocaleDateString("en-US");
+                        // displays date
+                        newCard.append($("<h4>").html(myDate));
+                        var iconCode = fullResponse.daily[i].weather[0].icon;
+                        var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+                        newCard.append($("<img>").attr("src", iconURL));
 
+                    }
+
+
+                });
+            
         });
     
 }
