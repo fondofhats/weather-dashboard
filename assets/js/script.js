@@ -42,12 +42,10 @@ function getData(city) {
     "&units=imperial&appid=bb777764badc46ea953835d44e32dc53";
   fetch(weatherQueryApiUrl)
     .then(function (response) {
-        console.log(response);
         return response.json();
     })
     .then(function (response) {
         if(response.cod !== 200){
-            console.log("UNDEFINED");
             alert("City Not Found!");
             $("#city").val("");
             isError=true;
