@@ -1,6 +1,5 @@
 # Weather Dashboard
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/fondofhats/weather-dashboard)
-![](https://img.badgesize.io/fondofhats/weather-dashboard/master/api/index.js.svg)
 
 ## Requirements/Description
 ### Description
