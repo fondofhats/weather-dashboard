@@ -93,19 +93,11 @@ function getData(city) {
             $("span").attr("class", "btn btn-success");
           } else if (
             fullResponse.current.uvi > 2 &&
-            fullResponse.current.uvi <= 5
+            fullResponse.current.uvi <= 7
           ) {
             $("span").attr("class", "btn btn-warning");
-          } else if(   
-            fullResponse.current.uvi > 5 &&
-            fullResponse.current.uvi <= 7){
-                $("span").attr("class", "btn btn-moderate");
-          } else if(            
-              fullResponse.current.uvi > 7 &&
-              fullResponse.current.uvi <= 10){
-                $("span").attr("class", "btn btn-danger");
-          }else {
-            $("span").attr("class", "btn btn-extreme");
+          } else {
+            $("span").attr("class", "btn btn-danger");
           }
 
           /* Get 5 Day Forecast From Weather API */

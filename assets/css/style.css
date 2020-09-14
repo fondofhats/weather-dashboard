@@ -26,23 +26,3 @@ header {
 h3 {
   float: left;
 }
-
-.btn-moderate {
-  color: #fff;
-  background-color: rgba(231, 145, 110, 0.596);
-  border-color: rgba(231, 145, 110, 0.596);
-}
-
-.btn-moderate:hover {
-  color: #fff;
-}
-
-.btn-extreme {
-  color: #fff;
-  background-color: rgb(212, 89, 212);
-  border-color: rgb(212, 89, 212);
-}
-
-.btn-extreme:hover {
-  color: #fff;
-}
