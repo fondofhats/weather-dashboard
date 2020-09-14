@@ -1,7 +1,6 @@
 # Weather Dashboard
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/fondofhats/weather-dashboard)
 
-
 ## Requirements/Description
 ### Description
 A weather dashboard that runs in the browser and features dynamically updated HTML and CSS using third party API's.
