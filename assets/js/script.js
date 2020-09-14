@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
 $(function() { 
    var locaton =  getLocation();
-    console.log(locaton);
  });
 
 //var cityArray = ["Orlando","Toronto", "Ottawa"];
 var mainCard = $(".card-body");
 var searchHistory = [];
+
 
 var getItems = function () {
   var storedCities = JSON.parse(localStorage.getItem("searchHistory"));
@@ -30,6 +30,7 @@ var getItems = function () {
 };
 
 function getData(city) {
+    var isError=false;
         mainCard.empty();
     $("#weeklyForecast").empty();
     if(!city){
@@ -41,20 +42,29 @@ function getData(city) {
     "&units=imperial&appid=bb777764badc46ea953835d44e32dc53";
   fetch(weatherQueryApiUrl)
     .then(function (response) {
-      /* console.log(response.json()); */
-      return response.json();
+        console.log(response);
+        return response.json();
     })
     .then(function (response) {
-      /* console.log(response); */
+        if(response.cod !== 200){
+            console.log("UNDEFINED");
+            alert("City Not Found!");
+            $("#city").val("");
+            isError=true;
+            getLocation();
+            return;
+        }
+        if(!isError){
+            saveNewCity(city);
+        }
+    
       var date = moment().format(" MM/DD/YYYY");
       var wIcon = response.weather[0].icon;
       var iconUrl = "http://openweathermap.org/img/w/" + wIcon + ".png";
       var cityName = $("<h3>").html(city + date);
       mainCard.prepend(cityName);
       mainCard.append($("<img>").attr("src", iconUrl));
-      /* var temp = Math.round((response.main.temp - 273.15) * 1.80 + 32); */
       var temp = Math.ceil(response.main.temp);
-      /* console.log(Math.ceil(temp)); */
       mainCard.append($("<p>").html("Temperature: " + temp + " &#8457"));
       var feelsLikeTemp = Math.ceil(response.main.feels_like);
       mainCard.append($("<p>").html("Feels Like: " + feelsLikeTemp));
@@ -75,7 +85,6 @@ function getData(city) {
           return fullResponse.json();
         })
         .then(function (fullResponse) {
-          /* console.log(UvResponse); */
           mainCard.append(
             $("<p>").html(
               "UV Index: <span>" + fullResponse.current.uvi + "</span>"
@@ -94,20 +103,16 @@ function getData(city) {
           }
 
           /* Get 5 Day Forecast From Weather API */
-          /* console.log(fullResponse.daily); */
           for (var i = 1; i < 6; i++) {
-            /* console.log(fivedayResponse.list[i]); */
             var newCard = $("<div>").attr(
               "class",
               "col fiveDay bg-primary text-white rounded-lg p-2"
             );
             $("#weeklyForecast").append(newCard);
-            /* console.log("UTC: " + moment.unix(fullResponse.daily[i].dt * 1000));
-                        console.log("DATE: " + new Date(fullResponse.daily[i].dt * 1000)); */
             var myDate = new Date(
               fullResponse.daily[i].dt * 1000
             ).toLocaleDateString("en-US");
-            // displays date
+            /* Display Date */
             newCard.append($("<h4>").html(myDate));
             var iconCode = fullResponse.daily[i].weather[0].icon;
             var iconURL =
@@ -121,13 +126,14 @@ function getData(city) {
         });
     });
 }
-// searches and adds to history
+/* Search Button Listener */
 $("#searchCity").on("click",function(){
     var city=$("#city").val(); 
     getData(city);
-    saveNewCity(city);
+    $("#city").val("");
 });
 
+/* Save City Name to LocalStorage */
 var saveNewCity = function(city){
     var inArray = searchHistory.includes(city);
     if(!inArray && city !==""){
@@ -165,17 +171,14 @@ function getLocation() {
   }
   
 function showPosition(position) {
-/*     console.log("Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude); */
     fetch("https://geolocation-db.com/json/697de680-a737-11ea-9820-af05f4014d91")
         .then(function(response){
             return response.json();
         })
         .then(function(response){
-            console.log(response.city);
             getData(response.city);
             $("#city").val(response.city);
             saveNewCity(response.city);
         });
 }
-/* getData(city); */
+
