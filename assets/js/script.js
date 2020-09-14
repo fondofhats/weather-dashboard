@@ -96,8 +96,16 @@ function getData(city) {
             fullResponse.current.uvi <= 5
           ) {
             $("span").attr("class", "btn btn-warning");
-          } else {
-            $("span").attr("class", "btn btn-danger");
+          } else if(   
+            fullResponse.current.uvi > 5 &&
+            fullResponse.current.uvi <= 7){
+                $("span").attr("class", "btn btn-moderate");
+          } else if(            
+              fullResponse.current.uvi > 7 &&
+              fullResponse.current.uvi <= 10){
+                $("span").attr("class", "btn btn-danger");
+          }else {
+            $("span").attr("class", "btn btn-extreme");
           }
 
           /* Get 5 Day Forecast From Weather API */

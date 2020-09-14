@@ -1,25 +1,48 @@
 :root {
-    --weaterh-card-color: royalblue;
-    --bg-color: black;
-    --light-text: #ffffff;
+  --weaterh-card-color: royalblue;
+  --bg-color: black;
+  --light-text: #ffffff;
 }
 
 header {
-    color: var(--light-text);
-    text-align: center;
-    padding: 20px;
-  }
-  .form-title {
-    font-size: 1.2em;
-  }
-  .card {
-    width:100%;
-  }
-  .fiveDay{    
-    background-color: var(--weaterh-card-color);
-    margin: 15px;
-  }
-  h3 {
-    float:left;
-  }
-  
+  color: var(--light-text);
+  text-align: center;
+  padding: 20px;
+}
+
+.form-title {
+  font-size: 1.2em;
+}
+
+.card {
+  width: 100%;
+}
+
+.fiveDay {
+  background-color: var(--weaterh-card-color);
+  margin: 15px;
+}
+
+h3 {
+  float: left;
+}
+
+.btn-moderate {
+  color: #fff;
+  background-color: rgba(231, 145, 110, 0.596);
+  border-color: rgba(231, 145, 110, 0.596);
+}
+
+.btn-moderate:hover {
+  color: #fff;
+}
+
+.btn-extreme {
+  color: #fff;
+  background-color: rgb(212, 89, 212);
+  border-color: rgb(212, 89, 212);
+}
+
+.btn-extreme:hover {
+  color: #fff;
+}

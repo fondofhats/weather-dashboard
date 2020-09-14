@@ -1,10 +1,10 @@
 # Weather Dashboard
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/fondofhats/weather-dashboard)
-![](https://img.badgesize.io/fondofhats/weather-dashboard/master/api/index.js.svg)
+
 
 ## Requirements/Description
 ### Description
-Create a simple calendar application that allows a user to save events for each hour of the workday. This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
+A weather dashboard that runs in the browser and features dynamically updated HTML and CSS using third party API's.
 <br>
 ### Requirements
 #### User Story
